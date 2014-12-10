@@ -10,7 +10,18 @@ namespace Burrows_Wheeler_Data_Compression.Tools
     {
         public static byte[] Transform(byte[] input)
         {
-            throw new NotImplementedException();
+            byte[] output = new byte[input.Length];
+            List<RotatableByte> robs = new List<RotatableByte>(input.Length);
+            for (int i = 0; i < input.Length; i++)
+            {
+                robs.Add(new RotatableByte(input, i));
+            }
+            robs.Sort();
+            for (int i = 0; i < input.Length; i++)
+            {
+                output[i] = robs.ElementAt(i).At(input.Length - 1);
+            }
+            return output;
         }
 
         public static byte[] InverseTransform(byte[] input)
