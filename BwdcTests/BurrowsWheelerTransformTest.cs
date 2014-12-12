@@ -30,7 +30,8 @@ namespace BwdcTests
         [TestMethod]
         public void TestInverseTransform()
         {
-            throw new NotImplementedException();
+            byte[] output = BurrowsWheelerTransform.InverseTransform(STR_TRANSFORMED_BYTEARR);
+            Assert.AreEqual<String>(STR, ByteArrToString(output));
         }
 
         private string ByteArrToString(byte[] input)

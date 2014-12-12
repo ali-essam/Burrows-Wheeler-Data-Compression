@@ -30,12 +30,48 @@ namespace Burrows_Wheeler_Data_Compression.Tools
 
         public static byte[] InverseTransform(byte[] input)
         {
-            throw new NotImplementedException();
+            int Length = input.Length - 4;
+            int I = ByteArrToInt(input, input.Length - 4);
+            int[] freq = new int[256];
+            Array.Clear(freq, 0, freq.Length);
+            // T1: Number of Preceding Symbols Matching Symbol in Current Position.
+            int[] T1 = new int[Length];
+            // T2: Number of Symbols Lexicographically Less Than Current Symbol
+            int[] T2 = new int[256];
+            Array.Clear(T2, 0, T2.Length);
+            // Construct T1
+            for (int i = 0; i < Length; i++)
+            {
+                T1[i] = freq[input[i]];
+                freq[input[i]]++;
+            }
+            // Construct T2
+            T2[0] = 0;
+            for (int i = 1; i < 256; i++)
+            {
+                T2[i] = T2[i - 1] + freq[i - 1];
+            }
+
+            byte[] output = new byte[Length];
+            int nxt = I;
+            for (int i = Length - 1; i >= 0; i--)
+            {
+                output[i] = input[nxt];
+                int a = T1[nxt];
+                int b = T2[input[nxt]];
+                nxt = a + b;
+            }
+            return output;
         }
 
         private static byte[] IntToByteArr(int i)
         {
             return BitConverter.GetBytes(i);
+        }
+
+        private static int ByteArrToInt(byte[] input, int StartIndex)
+        {
+            return BitConverter.ToInt32(input, StartIndex);
         }
     }
 }
