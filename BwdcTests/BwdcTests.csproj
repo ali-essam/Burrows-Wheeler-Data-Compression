@@ -55,6 +55,7 @@
     <Compile Include="HuffmanCodingTest.cs" />
     <Compile Include="MoveToFrontCodingTest.cs" />
     <Compile Include="RotatableByteTest.cs" />
+    <Compile Include="BWCompressionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Burrows Wheeler Data Compression\Burrows Wheeler Data Compression.csproj">
