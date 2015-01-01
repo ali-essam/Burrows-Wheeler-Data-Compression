@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Burrows Wheeler Data Compre
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BwdcTests", "BwdcTests\BwdcTests.csproj", "{B9B981F7-20CF-4927-AD6F-DF02A2F78CF6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BWCompCL", "BWCompCL\BWCompCL.csproj", "{23E668AC-5D29-4F78-A716-187D1BE10673}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{B9B981F7-20CF-4927-AD6F-DF02A2F78CF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9B981F7-20CF-4927-AD6F-DF02A2F78CF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9B981F7-20CF-4927-AD6F-DF02A2F78CF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23E668AC-5D29-4F78-A716-187D1BE10673}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23E668AC-5D29-4F78-A716-187D1BE10673}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23E668AC-5D29-4F78-A716-187D1BE10673}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23E668AC-5D29-4F78-A716-187D1BE10673}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
