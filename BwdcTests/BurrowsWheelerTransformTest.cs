@@ -7,11 +7,10 @@ namespace BwdcTests
     [TestClass]
     public class BurrowsWheelerTransformTest
     {
-        private static readonly String STR = "this is a test.";
-        private static readonly String STR_TRANSFORMED = "ssat tt hiies .";
-        private static readonly byte[] IBytes = new byte[] { 14, 0, 0, 0 };
+        private static readonly String STR = "abaaba";
+        private static readonly String STR_TRANSFORMED = "abbaaa";
+        private static readonly byte[] IBytes = new byte[] { 4, 0, 0, 0 };
         private static readonly byte[] STR_TRANSFORMED_BYTEARR = new byte[STR_TRANSFORMED.Length + 4];
-
         [TestInitialize]
         public void Init()
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Burrows_Wheeler_Data_Compression.External;
 
 namespace Burrows_Wheeler_Data_Compression.Tools
 {
@@ -11,20 +12,25 @@ namespace Burrows_Wheeler_Data_Compression.Tools
         public static byte[] Transform(byte[] input)
         {
             byte[] output = new byte[input.Length + 4];
-            List<RotatableByte> robs = new List<RotatableByte>(input.Length);
-            for (int i = 0; i < input.Length; i++)
-            {
-                robs.Add(new RotatableByte(input, i));
-            }
-            RotatableByte S0 = robs.ElementAt(0);
-            robs.Sort();
-            for (int i = 0; i < input.Length; i++)
-            {
-                output[i] = robs.ElementAt(i).At(input.Length - 1);
-            }
-            int I = robs.IndexOf(S0);
-            byte[] ibyte = IntToByteArr(I);
-            ibyte.CopyTo(output, input.Length);
+            short [] newInput = new short [input.Length+1] ;
+            for (int i = 0; i < input.Length;i++ )
+                newInput[i] = (Int16)(input[i] + 1);  
+            newInput[input.Length] = 0;
+           int [] suffixArray = SuffixArray.Construct(newInput);
+           int end=0; 
+           int outputInd = 0;
+            for (int i = 0; i < suffixArray.Length;i++ )
+           {
+               if (suffixArray[i] == 0)
+               {
+                   end = i;
+                   continue;
+               }
+               output[outputInd]= (byte)(newInput[ suffixArray[i]-1]-1);
+               outputInd++;
+           }
+            byte[] endByte = IntToByteArr(end);
+            endByte.CopyTo(output, input.Length);
             return output;
         }
 
