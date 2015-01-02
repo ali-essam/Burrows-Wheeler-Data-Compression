@@ -7,30 +7,46 @@ namespace BwdcTests
     [TestClass]
     public class BurrowsWheelerTransformTest
     {
-        private static readonly String STR = "abaaba";
-        private static readonly String STR_TRANSFORMED = "abbaaa";
-        private static readonly byte[] IBytes = new byte[] { 4, 0, 0, 0 };
-        private static readonly byte[] STR_TRANSFORMED_BYTEARR = new byte[STR_TRANSFORMED.Length + 4];
+        private static readonly String STR1 = "abaaba";
+        private static readonly String STR_TRANSFORMED1 = "abbaaa";
+        private static readonly byte[] IBytes1 = new byte[] { 4, 0, 0, 0 };
+        private static readonly byte[] STR_TRANSFORMED_BYTEARR1 = new byte[STR_TRANSFORMED1.Length + 4];
+
+        private static readonly String STR2 = "caba";
+        private static readonly String STR_TRANSFORMED2 = "abca";
+        private static readonly byte[] IBytes2 = new byte[] { 4, 0, 0, 0 };
+        private static readonly byte[] STR_TRANSFORMED_BYTEARR2 = new byte[STR_TRANSFORMED2.Length + 4];
+
         [TestInitialize]
         public void Init()
         {
-            byte[] output = StringToByteArr(STR_TRANSFORMED);
-            output.CopyTo(STR_TRANSFORMED_BYTEARR, 0);
-            IBytes.CopyTo(STR_TRANSFORMED_BYTEARR, STR_TRANSFORMED.Length);
+            byte[] output1 = StringToByteArr(STR_TRANSFORMED1);
+            output1.CopyTo(STR_TRANSFORMED_BYTEARR1, 0);
+            IBytes1.CopyTo(STR_TRANSFORMED_BYTEARR1, STR_TRANSFORMED1.Length);
+
+            byte[] output2 = StringToByteArr(STR_TRANSFORMED2);
+            output2.CopyTo(STR_TRANSFORMED_BYTEARR2, 0);
+            IBytes2.CopyTo(STR_TRANSFORMED_BYTEARR2, STR_TRANSFORMED2.Length);
         }
 
         [TestMethod]
         public void TestTransform()
         {
-            byte[] output = BurrowsWheelerTransform.Transform(StringToByteArr(STR));
-            Assert.AreEqual<String>(ByteArrToString(STR_TRANSFORMED_BYTEARR), ByteArrToString(output));
+            byte[] output1 = BurrowsWheelerTransform.Transform(StringToByteArr(STR1));
+            Assert.AreEqual<String>(ByteArrToString(STR_TRANSFORMED_BYTEARR1), ByteArrToString(output1));
+
+            byte[] output2 = BurrowsWheelerTransform.Transform(StringToByteArr(STR2));
+            Assert.AreEqual<String>(ByteArrToString(STR_TRANSFORMED_BYTEARR2), ByteArrToString(output2));
         }
 
         [TestMethod]
         public void TestInverseTransform()
         {
-            byte[] output = BurrowsWheelerTransform.InverseTransform(STR_TRANSFORMED_BYTEARR);
-            Assert.AreEqual<String>(STR, ByteArrToString(output));
+            byte[] output1 = BurrowsWheelerTransform.InverseTransform(STR_TRANSFORMED_BYTEARR1);
+            Assert.AreEqual<String>(STR1, ByteArrToString(output1));
+
+            byte[] output2 = BurrowsWheelerTransform.InverseTransform(STR_TRANSFORMED_BYTEARR2);
+            Assert.AreEqual<String>(STR2, ByteArrToString(output2));
         }
 
         private string ByteArrToString(byte[] input)

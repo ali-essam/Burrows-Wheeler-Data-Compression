@@ -52,21 +52,28 @@ namespace Burrows_Wheeler_Data_Compression.Tools
                 T1[i] = freq[input[i]];
                 freq[input[i]]++;
             }
+
             // Construct T2
-            T2[0] = 0;
+            // Add $ special symbol in consideration to be less than any symbol
+            T2[0] = 1;
             for (int i = 1; i < 256; i++)
             {
                 T2[i] = T2[i - 1] + freq[i - 1];
             }
 
             byte[] output = new byte[Length];
-            int nxt = I;
+            int nxt = 0;
             for (int i = Length - 1; i >= 0; i--)
             {
                 output[i] = input[nxt];
                 int a = T1[nxt];
                 int b = T2[input[nxt]];
                 nxt = a + b;
+                // Add $ special symbol index in consideration
+                if (nxt >= I)
+                {
+                    nxt--;
+                }
             }
             return output;
         }
