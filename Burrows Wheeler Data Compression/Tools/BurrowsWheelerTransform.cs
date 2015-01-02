@@ -12,28 +12,29 @@ namespace Burrows_Wheeler_Data_Compression.Tools
         public static byte[] Transform(byte[] input)
         {
             byte[] output = new byte[input.Length + 4];
-            short [] newInput = new short [input.Length+1] ;
-            for (int i = 0; i < input.Length;i++ )
-                newInput[i] = (Int16)(input[i] + 1);  
+            short[] newInput = new short[input.Length + 1];
+
+            for (int i = 0; i < input.Length; i++)
+                newInput[i] = (Int16)(input[i] + 1);
+
             newInput[input.Length] = 0;
-           int [] suffixArray = SuffixArray.Construct(newInput);
-           int end=0; 
-           int outputInd = 0;
-            for (int i = 0; i < suffixArray.Length;i++ )
-           {
-               if (suffixArray[i] == 0)
-               {
-                   end = i;
-                   continue;
-               }
-               output[outputInd]= (byte)(newInput[ suffixArray[i]-1]-1);
-               outputInd++;
-           }
+            int[] suffixArray = SuffixArray.Construct(newInput);
+            int end = 0;
+            int outputInd = 0;
+            for (int i = 0; i < suffixArray.Length; i++)
+            {
+                if (suffixArray[i] == 0)
+                {
+                    end = i;
+                    continue;
+                }
+                output[outputInd] = (byte)(newInput[suffixArray[i] - 1] - 1);
+                outputInd++;
+            }
             byte[] endByte = IntToByteArr(end);
             endByte.CopyTo(output, input.Length);
             return output;
         }
-
         public static byte[] InverseTransform(byte[] input)
         {
             int Length = input.Length - 4;
@@ -69,12 +70,10 @@ namespace Burrows_Wheeler_Data_Compression.Tools
             }
             return output;
         }
-
         private static byte[] IntToByteArr(int i)
         {
             return BitConverter.GetBytes(i);
         }
-
         private static int ByteArrToInt(byte[] input, int StartIndex)
         {
             return BitConverter.ToInt32(input, StartIndex);
